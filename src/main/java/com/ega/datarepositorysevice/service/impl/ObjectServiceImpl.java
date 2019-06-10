@@ -5,6 +5,8 @@ import com.ega.datarepositorysevice.repository.ObjectRepository;
 import com.ega.datarepositorysevice.service.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
@@ -12,16 +14,12 @@ import java.util.Optional;
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
-    private final ObjectRepository objectRepository;
-
     @Autowired
-    public ObjectServiceImpl(ObjectRepository objectRepository) {
-        this.objectRepository = objectRepository;
-    }
+    private ObjectRepository objectRepository;
 
     @Override
-    public Mono<Object> getObjectById(Long id) {
-        Optional<Object> objectOpt = objectRepository.findById(id);
+    public Mono<Object> getObjectById(String id) {
+        Optional<Object> objectOpt =  objectRepository.findById(id);
         return objectOpt.map(Mono::just).orElseGet(Mono::empty);
     }
 }
