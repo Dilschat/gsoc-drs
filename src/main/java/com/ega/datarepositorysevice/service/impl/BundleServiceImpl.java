@@ -4,6 +4,7 @@ import com.ega.datarepositorysevice.model.Bundle;
 import com.ega.datarepositorysevice.repository.BundleRepository;
 import com.ega.datarepositorysevice.service.BundleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
