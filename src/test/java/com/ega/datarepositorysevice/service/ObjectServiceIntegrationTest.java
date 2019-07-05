@@ -21,10 +21,9 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import static org.mockito.Mockito.mock;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -59,18 +58,17 @@ public class ObjectServiceIntegrationTest {
     @Test
     public void testExistingValue() {
         Mono<Object> objectMono = objectService.getObjectById(objectTestObject.getId());
-        Optional<Object> optionalObject = objectMono.blockOptional();
-        Assert.assertTrue(optionalObject.isPresent());
-        Object actualObject = optionalObject.get();
+        Optional<Object> objecteOptional = objectMono.blockOptional();
+        Assert.assertTrue(objecteOptional.isPresent());
+        Object actualObject = objecteOptional.get();
         Assert.assertEquals(objectTestObject, actualObject);
 
     }
 
     @Test
     public void testEmptyValue() {
-        Mono<Object> bundleMono = objectService.getObjectById(2L);
+        Mono<Object> bundleMono = objectService.getObjectById(objectTestObject.getId()+1);
         Optional<Object> bundleOptional = bundleMono.blockOptional();
-
         Assert.assertFalse(bundleOptional.isPresent());
     }
 }
