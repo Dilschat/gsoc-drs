@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.mockito.Mockito.mock;
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureTestDatabase
@@ -26,8 +29,10 @@ public class AccessMethodsServiceIntegrationTest {
     @Autowired
     private AccessMethodsService accessMethodsService;
 
-     @Autowired
+    @Autowired
     private AccessMethodsRepository accessMethodsRepository;
+
+
 
     private AccessMethods accessMethodsTestObject;
 
@@ -46,7 +51,8 @@ public class AccessMethodsServiceIntegrationTest {
         Optional<AccessMethods> accessMethodsOptional = accessMethod.blockOptional();
 
         Assert.assertTrue(accessMethodsOptional.isPresent());
-        Assert.assertEquals(accessMethodsTestObject, accessMethodsOptional.get());
+        AccessMethods actual = accessMethodsOptional.get();
+        Assert.assertEquals(accessMethodsTestObject, actual);
 
 
     }
